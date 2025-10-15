@@ -7,14 +7,15 @@
 const PRODUCTS = [
     {
         id: 1,
-        name: 'Nutri Chicken Bites Frozen 100gr',
-        slug: 'frozen-100gr',
+        name: 'Nutri Chicken Bites Frozen 150gr',
+        slug: 'frozen-150gr',
         price: 17000,
         weight: '150gr',
         type: 'frozen',
         images: [
             'images/product1-img1.jpg',
-            'images/product1-img2.jpg'
+            'images/product1-img2.jpg',
+            'images/product1-img3.jpg'
         ],
         description: 'Nugget ayam premium tanpa pengawet. Cocok untuk porsi personal atau mencoba produk kami.',
         nutrition: {
@@ -28,14 +29,15 @@ const PRODUCTS = [
     },
     {
         id: 2,
-        name: 'Nutri Chicken Bites Frozen 250gr',
-        slug: 'frozen-250gr',
+        name: 'Nutri Chicken Bites Frozen 300gr',
+        slug: 'frozen-300gr',
         price: 37000,
         weight: '300gr',
         type: 'frozen',
         images: [
             'images/product2-img1.jpg',
-            'images/product2-img2.jpg'
+            'images/product2-img2.jpg',
+            'images/product2-img3.jpg'
         ],
         description: 'Nugget ayam premium tanpa pengawet. Hemat untuk keluarga! Best seller kami.',
         nutrition: {
@@ -56,6 +58,7 @@ const PRODUCTS = [
         type: 'ready',
         images: [
             'images/product3-mp1.mp4',
+            'images/product3-img1.jpg',
             'images/product3-img2.jpg'
         ],
         description: 'Nugget ayam sudah matang, siap santap. Praktis untuk camilan atau bekal instant.',
@@ -286,6 +289,7 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 
 }
+
 
 
 
