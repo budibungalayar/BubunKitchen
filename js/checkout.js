@@ -477,6 +477,4 @@ window.confirmOrder = confirmOrder;
 window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
-
 window.closeStatusModal = closeStatusModal;
-
