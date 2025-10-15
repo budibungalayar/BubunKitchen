@@ -318,6 +318,9 @@ function confirmOrder() {
     
     // Save order
     if (Storage.addOrder(order)) {
+        // Simpan ke Firebase juga
+        if (typeof saveOrderToFirebase === 'function') {
+            saveOrderToFirebase(order);
         // Clear cart
         Storage.clearCart();
         updateCartBadge();
@@ -474,4 +477,6 @@ window.confirmOrder = confirmOrder;
 window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
+
 window.closeStatusModal = closeStatusModal;
+
