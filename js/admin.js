@@ -3,7 +3,7 @@
 // Admin dashboard & order management
 // ==========================================
 
-const ADMIN_PASSWORD = 'bubunadmin';
+const ADMIN_PASSWORD = 'bubun25705';
 let currentFilter = 'all';
 let allOrders = [];
 
@@ -633,4 +633,5 @@ window.saveSettings = saveSettings;
 window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
+
 window.logout = logout;
