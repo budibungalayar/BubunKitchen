@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubun Kitchen - Hidangan Sehat dari Dapur Cinta</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="images/logo.png" alt="Bubun Kitchen Logo" class="logo" id="logo-secret">
+                <div class="brand-text">
+                    <h1>Bubun Kitchen</h1>
+                    <p class="tagline">Hidangan Sehat dari Dapur Cinta</p>
+                </div>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link">Beranda</a>
+                <a href="#about" class="nav-link">Tentang</a>
+                <a href="#products" class="nav-link">Produk</a>
+                <a href="#nutrition" class="nav-link">Nutrisi</a>
+                <a href="#testimonials" class="nav-link">Testimoni</a>
+                <a href="#contact" class="nav-link">Kontak</a>
+            </div>
+            <div class="nav-actions">
+                <a href="checkout.html" class="cart-icon" id="cartIcon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="hero-badge">Premium Quality</span>
+                <h2 class="hero-title">Nutri Chicken Bites</h2>
+                <p class="hero-description">Nugget ayam premium tanpa pengawet, 100% daging ayam pilihan. Tinggi protein, praktis, dan lezat untuk keluarga Indonesia.</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">Lihat Produk</a>
+                    <a href="#about" class="btn btn-outline">Selengkapnya</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Daging Ayam Asli</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Pengawet</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15g</span>
+                        <span class="stat-label">Protein/100gr</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Tentang Kami</span>
+                <h2 class="section-title">Bubun Kitchen</h2>
+                <p class="section-subtitle">Makanan Rumahan Bergaya Premium</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Sehat, Praktis, dan Lezat</h3>
+                    <p>Bubun Kitchen menghadirkan makanan rumahan bergaya premium yang sehat, praktis, dan lezat. Kami percaya bahwa makanan berkualitas adalah investasi terbaik untuk kesehatan keluarga Anda.</p>
+                    <div class="vision-mission">
+                        <div class="vm-item">
+                            <div class="vm-icon">🎯</div>
+                            <div class="vm-content">
+                                <h4>Visi</h4>
+                                <p>Menjadi pilihan utama keluarga Indonesia untuk makanan sehat siap saji yang berkualitas premium.</p>
+                            </div>
+                        </div>
+                        <div class="vm-item">
+                            <div class="vm-icon">💚</div>
+                            <div class="vm-content">
+                                <h4>Misi</h4>
+                                <p>Menyajikan produk makanan berkualitas tinggi, aman, bergizi, dan terjangkau untuk semua keluarga Indonesia.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">✓</div>
+                            <h4>Tanpa Pengawet</h4>
+                            <p>100% alami tanpa bahan pengawet kimia</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✓</div>
+                            <h4>Tinggi Protein</h4>
+                            <p>Kaya protein untuk pertumbuhan optimal</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✓</div>
+                            <h4>Higienis</h4>
+                            <p>Proses produksi dengan standar kebersihan tinggi</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✓</div>
+                            <h4>Praktis</h4>
+                            <p>Mudah diolah, hemat waktu untuk keluarga sibuk</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Produk Kami</span>
+                <h2 class="section-title">Nutri Chicken Bites</h2>
+                <p class="section-subtitle">Pilih varian yang sesuai dengan kebutuhan keluarga Anda</p>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrition Section -->
+    <section class="nutrition-section" id="nutrition">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Informasi Gizi</span>
+                <h2 class="section-title">Komposisi & Nilai Gizi</h2>
+                <p class="section-subtitle">Transparency is our priority</p>
+            </div>
+            <div class="nutrition-content">
+                <div class="composition-card">
+                    <h3>Komposisi Bahan</h3>
+                    <div class="ingredients-list">
+                        <div class="ingredient-item">
+                            <span class="ingredient-icon">🍗</span>
+                            <div>
+                                <h4>Daging Ayam Fillet (500gr)</h4>
+                                <p>100% daging ayam pilihan berkualitas premium</p>
+                            </div>
+                        </div>
+                        <div class="ingredient-item">
+                            <span class="ingredient-icon">🥚</span>
+                            <div>
+                                <h4>Telur & Susu</h4>
+                                <p>1 butir telur + 75ml susu cair untuk tekstur lembut</p>
+                            </div>
+                        </div>
+                        <div class="ingredient-item">
+                            <span class="ingredient-icon">🧄</span>
+                            <div>
+                                <h4>Bumbu Alami</h4>
+                                <p>Bawang putih, bawang merah, merica, garam, kaldu sapi</p>
+                            </div>
+                        </div>
+                        <div class="ingredient-item">
+                            <span class="ingredient-icon">🌾</span>
+                            <div>
+                                <h4>Tepung & Panir</h4>
+                                <p>Tepung terigu, tapioka, tepung panir, baking powder</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nutrition-facts">
+                    <h3>Nilai Gizi Per 100gr</h3>
+                    <div class="nutrition-bars">
+                        <div class="nutrition-bar">
+                            <div class="bar-label">
+                                <span>Kalori</span>
+                                <strong>180 kcal</strong>
+                            </div>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="nutrition-bar">
+                            <div class="bar-label">
+                                <span>Protein</span>
+                                <strong>15g</strong>
+                            </div>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="nutrition-bar">
+                            <div class="bar-label">
+                                <span>Lemak</span>
+                                <strong>7g</strong>
+                            </div>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: 35%"></div>
+                            </div>
+                        </div>
+                        <div class="nutrition-bar">
+                            <div class="bar-label">
+                                <span>Karbohidrat</span>
+                                <strong>8g</strong>
+                            </div>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: 40%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="serving-info">
+                        <h4>Cara Penyajian</h4>
+                        <ul>
+                            <li><strong>Goreng:</strong> 3-5 menit dalam minyak panas hingga keemasan</li>
+                            <li><strong>Oven:</strong> 180°C selama 10-12 menit</li>
+                            <li><strong>Air Fryer:</strong> 180°C selama 8-10 menit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Testimoni</span>
+                <h2 class="section-title">Kata Mereka</h2>
+                <p class="section-subtitle">Kepuasan pelanggan adalah prioritas kami</p>
+            </div>
+            <div class="testimonials-slider" id="testimonialsSlider">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Nugget nya enak banget! Anak-anak suka dan yang penting tanpa pengawet. Harga juga affordable untuk kualitas premium."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">I</div>
+                        <div>
+                            <h4>Ibu Sarah</h4>
+                            <p>Jakarta Selatan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Praktis banget buat bekal anak sekolah. Tinggal goreng sebentar langsung matang. Rasanya juga enak, tidak kalah dengan brand terkenal!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div>
+                            <h4>Ibu Amanda</h4>
+                            <p>Tangerang</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Sebagai ibu yang concern sama kesehatan keluarga, Bubun Kitchen jadi pilihan terbaik. Daging ayam asli dan tanpa MSG!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">R</div>
+                        <div>
+                            <h4>Ibu Ratna</h4>
+                            <p>Bekasi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Hubungi Kami</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Ada pertanyaan? Kami siap membantu</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <p>+62 857-3777-2377</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>hello@bubunkitchen.id</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Instagram</h4>
+                            <p>@bubunkitchen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cta-card">
+                    <h3>Siap Order?</h3>
+                    <p>Pesan sekarang dan rasakan kelezatan Nutri Chicken Bites untuk keluarga Anda!</p>
+                    <a href="#products" class="btn btn-primary btn-large">Lihat Produk</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo.png" alt="Bubun Kitchen" class="footer-logo">
+                    <h3>Bubun Kitchen</h3>
+                    <p>Hidangan Sehat dari Dapur Cinta</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Produk</h4>
+                        <ul>
+                            <li><a href="#products">Nutri Chicken Bites</a></li>
+                            <li><a href="#nutrition">Nilai Gizi</a></li>
+                            <li><a href="checkout.html">Order Sekarang</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Perusahaan</h4>
+                        <ul>
+                            <li><a href="#about">Tentang Kami</a></li>
+                            <li><a href="#testimonials">Testimoni</a></li>
+                            <li><a href="#contact">Kontak</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Syarat & Ketentuan</a></li>
+                            <li><a href="#">Kebijakan Privasi</a></li>
+                            <li><a href="admin.html" class="admin-link">Portal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bubun Kitchen. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="WhatsApp">💬</a>
+                    <a href="#" aria-label="Facebook">📘</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

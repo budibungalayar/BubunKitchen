@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Bubun Kitchen</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Login Screen -->
+    <div class="admin-login" id="adminLogin">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>🔐 Admin Portal</h2>
+                <p>Bubun Kitchen Management</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Masukkan password admin" autofocus>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <div class="login-hint">
+                    <small>Hint: bubunadmin</small>                    
+                </div>
+            </form>
+            <a href="index.html" class="back-link">← Kembali ke Website</a>
+        </div>
+    </div>
+
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>Bubun Kitchen</h2>
+                <p>Admin Panel</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item" data-page="orders">
+                    <span class="nav-icon">📦</span>
+                    Pesanan
+                    <span class="badge" id="ordersBadge">0</span>
+                </a>
+                <a href="#" class="nav-item" data-page="products">
+                    <span class="nav-icon">🍗</span>
+                    Produk
+                </a>
+                <a href="#" class="nav-item" data-page="customers">
+                    <span class="nav-icon">👥</span>
+                    Pelanggan
+                </a>
+                <a href="#" class="nav-item" data-page="settings">
+                    <span class="nav-icon">⚙️</span>
+                    Pengaturan
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-outline btn-block" onclick="logout()">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="header-actions">
+                    <span class="admin-date" id="currentDate"></span>
+                    <button class="btn btn-outline btn-sm" onclick="refreshData()">🔄 Refresh</button>
+                </div>
+            </header>
+
+            <!-- Dashboard Page -->
+            <div class="admin-page" id="dashboardPage">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-content">
+                            <h3 id="totalOrders">0</h3>
+                            <p>Total Pesanan</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-content">
+                            <h3 id="pendingOrders">0</h3>
+                            <p>Pending</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🚚</div>
+                        <div class="stat-content">
+                            <h3 id="processingOrders">0</h3>
+                            <p>Diproses</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <h3 id="completedOrders">0</h3>
+                            <p>Selesai</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="revenue-card">
+                    <h3>Total Pendapatan</h3>
+                    <div class="revenue-amount" id="totalRevenue">Rp 0</div>
+                    <p class="revenue-note">Dari semua pesanan yang selesai</p>
+                </div>
+
+                <div class="recent-orders">
+                    <h3>Pesanan Terbaru</h3>
+                    <div id="recentOrdersList"></div>
+                </div>
+            </div>
+
+            <!-- Orders Page -->
+            <div class="admin-page" id="ordersPage" style="display: none;">
+                <div class="page-actions">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all" onclick="filterOrders('all')">
+                            Semua <span class="tab-count" id="countAll">0</span>
+                        </button>
+                        <button class="filter-tab" data-filter="PENDING" onclick="filterOrders('PENDING')">
+                            Pending <span class="tab-count" id="countPending">0</span>
+                        </button>
+                        <button class="filter-tab" data-filter="DIPROSES" onclick="filterOrders('DIPROSES')">
+                            Diproses <span class="tab-count" id="countProcessing">0</span>
+                        </button>
+                        <button class="filter-tab" data-filter="SELESAI" onclick="filterOrders('SELESAI')">
+                            Selesai <span class="tab-count" id="countCompleted">0</span>
+                        </button>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="searchOrder" placeholder="Cari kode pesanan atau nama..." onkeyup="searchOrders()">
+                    </div>
+                </div>
+
+                <div class="orders-table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Tanggal</th>
+                                <th>Pelanggan</th>
+                                <th>Produk</th>
+                                <th>Total</th>
+                                <th>Pembayaran</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr>
+                                <td colspan="8" class="no-data">Belum ada pesanan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Products Page -->
+            <div class="admin-page" id="productsPage" style="display: none;">
+                <div class="products-grid-admin">
+                    <div class="product-card-admin">
+                        <img src="images/product1-img1.jpg" alt="Product">
+                        <h4>Nutri Chicken Bites Frozen 100gr</h4>
+                        <p class="price">Rp 10.000</p>
+                        <span class="stock-badge">Stok: Tersedia</span>
+                    </div>
+                    <div class="product-card-admin">
+                        <img src="images/product2-img1.jpg" alt="Product">
+                        <h4>Nutri Chicken Bites Frozen 250gr</h4>
+                        <p class="price">Rp 25.000</p>
+                        <span class="stock-badge">Stok: Tersedia</span>
+                    </div>
+                    <div class="product-card-admin">
+                        <img src="images/product3-img1.jpg" alt="Product">
+                        <h4>Nutri Chicken Bites Matang</h4>
+                        <p class="price">Rp 20.000</p>
+                        <span class="stock-badge">Stok: Tersedia</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers Page -->
+            <div class="admin-page" id="customersPage" style="display: none;">
+                <div class="customers-list" id="customersList"></div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="admin-page" id="settingsPage" style="display: none;">
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h3>Informasi Rekening</h3>
+                        <div class="form-group">
+                            <label>DANA</label>
+                            <input type="text" id="danaNumber" value="085737772377">
+                        </div>
+                        <div class="form-group">
+                            <label>BNI</label>
+                            <input type="text" id="bniNumber" value="1457438130">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveSettings()">Simpan Perubahan</button>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Data Management</h3>
+                        <button class="btn btn-outline" onclick="exportOrders()">📥 Export Data Pesanan</button>
+                        <button class="btn btn-danger" onclick="clearAllData()">🗑️ Hapus Semua Data</button>
+                        <p class="warning-text">⚠️ Hati-hati! Tindakan ini tidak dapat dibatalkan.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal" id="orderDetailModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Detail Pesanan</h3>
+                <button class="modal-close" onclick="closeOrderModal()">×</button>
+            </div>
+            <div class="modal-body" id="orderDetailContent"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

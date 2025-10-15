@@ -1,0 +1,155 @@
+// ==========================================
+// BUBUN KITCHEN - CART MANAGEMENT
+// Shopping cart logic dan operations
+// ==========================================
+
+// Add product to cart
+function addToCart(productId) {
+    const product = getProductById(productId);
+    if (!product) {
+        showToast('Produk tidak ditemukan', 'error');
+        return;
+    }
+    
+    const cart = Storage.getCart();
+    const existingItem = cart.find(item => item.productId === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+        showToast(`${product.name} ditambahkan (${existingItem.quantity})`, 'success');
+    } else {
+        cart.push({
+            productId: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.images[0],
+            weight: product.weight,
+            quantity: 1
+        });
+        showToast(`${product.name} ditambahkan ke keranjang`, 'success');
+    }
+    
+    Storage.saveCart(cart);
+    updateCartBadge();
+    
+    // Animate cart icon
+    const cartIcon = document.getElementById('cartIcon');
+    if (cartIcon) {
+        cartIcon.style.animation = 'none';
+        setTimeout(() => {
+            cartIcon.style.animation = 'bounce 0.5s ease';
+        }, 10);
+    }
+}
+
+// Remove product from cart
+function removeFromCart(productId) {
+    const cart = Storage.getCart();
+    const filteredCart = cart.filter(item => item.productId !== productId);
+    
+    Storage.saveCart(filteredCart);
+    updateCartBadge();
+    showToast('Item dihapus dari keranjang', 'success');
+    
+    // Re-render cart if on checkout page
+    if (typeof renderCartItems === 'function') {
+        renderCartItems();
+    }
+}
+
+// Update cart item quantity
+function updateCartQuantity(productId, quantity) {
+    if (quantity < 1) {
+        removeFromCart(productId);
+        return;
+    }
+    
+    const cart = Storage.getCart();
+    const item = cart.find(item => item.productId === productId);
+    
+    if (item) {
+        item.quantity = parseInt(quantity);
+        Storage.saveCart(cart);
+        updateCartBadge();
+        
+        // Re-render cart if on checkout page
+        if (typeof renderCartItems === 'function') {
+            renderCartItems();
+        }
+    }
+}
+
+// Increase quantity
+function increaseQuantity(productId) {
+    const cart = Storage.getCart();
+    const item = cart.find(item => item.productId === productId);
+    
+    if (item) {
+        item.quantity += 1;
+        Storage.saveCart(cart);
+        updateCartBadge();
+        
+        if (typeof renderCartItems === 'function') {
+            renderCartItems();
+        }
+    }
+}
+
+// Decrease quantity
+function decreaseQuantity(productId) {
+    const cart = Storage.getCart();
+    const item = cart.find(item => item.productId === productId);
+    
+    if (item) {
+        if (item.quantity > 1) {
+            item.quantity -= 1;
+            Storage.saveCart(cart);
+            updateCartBadge();
+            
+            if (typeof renderCartItems === 'function') {
+                renderCartItems();
+            }
+        } else {
+            removeFromCart(productId);
+        }
+    }
+}
+
+// Get cart total
+function getCartTotal() {
+    const cart = Storage.getCart();
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
+
+// Get cart items count
+function getCartCount() {
+    const cart = Storage.getCart();
+    return cart.reduce((count, item) => count + item.quantity, 0);
+}
+
+// Clear entire cart
+function clearCart() {
+    if (confirm('Yakin ingin mengosongkan keranjang?')) {
+        Storage.clearCart();
+        updateCartBadge();
+        showToast('Keranjang dikosongkan', 'success');
+        
+        if (typeof renderCartItems === 'function') {
+            renderCartItems();
+        }
+    }
+}
+
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        addToCart,
+        removeFromCart,
+        updateCartQuantity,
+        increaseQuantity,
+        decreaseQuantity,
+        getCartTotal,
+        getCartCount,
+        clearCart
+    };
+}

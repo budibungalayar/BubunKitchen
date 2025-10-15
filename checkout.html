@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Bubun Kitchen</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-solid">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Bubun Kitchen Logo" class="logo">
+                    <div class="brand-text">
+                        <h1>Bubun Kitchen</h1>
+                        <p class="tagline">Hidangan Sehat dari Dapur Cinta</p>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html" class="btn btn-outline">Kembali Belanja</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="checkout-page">
+        <div class="container">
+            <!-- Checkout Progress -->
+            <div class="checkout-progress">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <span>Keranjang</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <span>Detail</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <span>Pembayaran</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <span>Selesai</span>
+                </div>
+            </div>
+
+            <div class="checkout-container">
+                <!-- Step 1: Cart -->
+                <div class="checkout-step" id="step1">
+                    <h2 class="step-title">Keranjang Belanja</h2>
+                    <div class="cart-container">
+                        <div id="cartEmpty" class="empty-state">
+                            <div class="empty-icon">🛒</div>
+                            <h3>Keranjang Kosong</h3>
+                            <p>Yuk, mulai belanja Nutri Chicken Bites!</p>
+                            <a href="index.html#products" class="btn btn-primary">Lihat Produk</a>
+                        </div>
+                        <div id="cartItems" class="cart-items"></div>
+                        <div id="cartSummary" class="cart-summary" style="display: none;">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <strong id="subtotal">Rp 0</strong>
+                            </div>
+                            <div class="summary-row">
+                                <span>Ongkir</span>
+                                <strong id="shipping">Gratis</strong>
+                            </div>
+                            <div class="summary-divider"></div>
+                            <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <strong id="totalAmount">Rp 0</strong>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="goToStep(2)">Lanjut ke Detail Pengiriman</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Customer Details -->
+                <div class="checkout-step" id="step2" style="display: none;">
+                    <h2 class="step-title">Detail Pengiriman</h2>
+                    <form class="checkout-form" id="customerForm">
+                        <div class="form-group">
+                            <label for="customerName">Nama Lengkap *</label>
+                            <input type="text" id="customerName" required placeholder="Masukkan nama lengkap">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">Nomor WhatsApp *</label>
+                            <input type="tel" id="customerPhone" required placeholder="08xxxxxxxxxx">
+                            <small>Untuk konfirmasi pesanan</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerEmail">Email (Opsional)</label>
+                            <input type="email" id="customerEmail" placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerAddress">Alamat Lengkap *</label>
+                            <textarea id="customerAddress" required placeholder="Jalan, nomor rumah, RT/RW, Kelurahan, Kecamatan" rows="4"></textarea>
+                            <small>Area jangkauan: Jabodetabek</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerNotes">Catatan (Opsional)</label>
+                            <textarea id="customerNotes" placeholder="Instruksi khusus untuk kurir" rows="2"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" onclick="goToStep(1)">Kembali</button>
+                            <button type="submit" class="btn btn-primary">Lanjut ke Pembayaran</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 3: Payment Method -->
+                <div class="checkout-step" id="step3" style="display: none;">
+                    <h2 class="step-title">Metode Pembayaran</h2>
+                    <div class="payment-methods">
+                        <div class="payment-option" data-method="transfer">
+                            <input type="radio" name="payment" id="paymentTransfer" value="transfer" checked>
+                            <label for="paymentTransfer">
+                                <div class="payment-icon">🏦</div>
+                                <div class="payment-info">
+                                    <h4>Transfer Bank</h4>
+                                    <p>Transfer ke rekening DANA atau BNI</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="payment-option" data-method="cod">
+                            <input type="radio" name="payment" id="paymentCOD" value="cod">
+                            <label for="paymentCOD">
+                                <div class="payment-icon">💵</div>
+                                <div class="payment-info">
+                                    <h4>Bayar di Tempat (COD)</h4>
+                                    <p>Bayar tunai saat pesanan tiba</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Transfer Details -->
+                    <div id="transferDetails" class="payment-details">
+                        <h3>Pilih Metode Transfer</h3>
+                        <div class="transfer-options">
+                            <div class="transfer-option" data-provider="dana">
+                                <input type="radio" name="transferMethod" id="transferDANA" value="dana" checked>
+                                <label for="transferDANA">
+                                    <div class="transfer-logo">💳 DANA</div>
+                                </label>
+                            </div>
+                            <div class="transfer-option" data-provider="bni">
+                                <input type="radio" name="transferMethod" id="transferBNI" value="bni">
+                                <label for="transferBNI">
+                                    <div class="transfer-logo">🏦 BNI</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="account-info-box" id="accountInfoBox" style="display: none;">
+                            <h4>Informasi Rekening</h4>
+                            <div id="accountDetails"></div>
+                            <div class="info-note">
+                                <strong>⚠️ Penting:</strong> Transfer sesuai nominal total dan simpan bukti transfer.
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-block" id="showAccountBtn" onclick="showAccountDetails()">
+                            Tampilkan Nomor Rekening
+                        </button>
+                    </div>
+
+                    <!-- COD Details -->
+                    <div id="codDetails" class="payment-details" style="display: none;">
+                        <div class="cod-info">
+                            <h3>Informasi COD</h3>
+                            <ul>
+                                <li>✓ Siapkan uang tunai sesuai nominal total</li>
+                                <li>✓ Kurir akan datang dalam 1-2 hari kerja</li>
+                                <li>✓ Cek kondisi produk sebelum membayar</li>
+                                <li>✓ Hanya tersedia untuk area Jabodetabek</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary-box">
+                        <h3>Ringkasan Pesanan</h3>
+                        <div id="orderSummary"></div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-total-box">
+                            <span>Total Pembayaran</span>
+                            <strong id="finalTotal">Rp 0</strong>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="goToStep(2)">Kembali</button>
+                        <button type="button" class="btn btn-primary" onclick="confirmOrder()">Konfirmasi Pesanan</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Order Success -->
+                <div class="checkout-step" id="step4" style="display: none;">
+                    <div class="success-container">
+                        <div class="success-icon">✓</div>
+                        <h2>Pesanan Berhasil!</h2>
+                        <p class="success-message">Terima kasih telah berbelanja di Bubun Kitchen</p>
+                        
+                        <div class="order-code-box">
+                            <label>Kode Pesanan Anda:</label>
+                            <div class="order-code" id="orderCodeDisplay">-</div>
+                            <button class="btn btn-outline btn-sm" onclick="copyOrderCode()">Salin Kode</button>
+                        </div>
+
+                        <div class="order-info-box" id="orderInfoBox"></div>
+
+                        <div class="next-steps">
+                            <h3>Langkah Selanjutnya:</h3>
+                            <div class="step-item">
+                                <span class="step-num">1</span>
+                                <p id="nextStep1">Transfer ke rekening yang ditampilkan</p>
+                            </div>
+                            <div class="step-item">
+                                <span class="step-num">2</span>
+                                <p>Simpan bukti transfer</p>
+                            </div>
+                            <div class="step-item">
+                                <span class="step-num">3</span>
+                                <p>Kami akan konfirmasi via WhatsApp</p>
+                            </div>
+                            <div class="step-item">
+                                <span class="step-num">4</span>
+                                <p>Pesanan akan dikirim dalam 1-2 hari kerja</p>
+                            </div>
+                        </div>
+
+                        <div class="success-actions">
+                            <a href="index.html" class="btn btn-outline">Kembali ke Beranda</a>
+                            <button class="btn btn-primary" onclick="checkOrderStatus()">Cek Status Pesanan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Status Modal -->
+                <div class="modal" id="statusModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Status Pesanan</h3>
+                            <button class="modal-close" onclick="closeStatusModal()">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="orderCodeInput">Masukkan Kode Pesanan</label>
+                                <input type="text" id="orderCodeInput" placeholder="Contoh: ABC12345">
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="searchOrder()">Cek Status</button>
+                            <div id="statusResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer footer-minimal">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bubun Kitchen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
