@@ -340,6 +340,4 @@ import { addToCart } from './cart.js';
 window.addToCart = addToCart;
 window.nextSlide = nextSlide;
 window.previousSlide = previousSlide;
-
 window.goToSlide = goToSlide;
-
