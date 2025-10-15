@@ -24,7 +24,7 @@ const PRODUCTS = [
             fat: '7g',
             carbs: '8g'
         },
-        serving: 'Goreng 3-5 menit atau oven 10 menit hingga keemasan',
+        serving: 'Goreng 3-5 menit atau airfrayer 10 menit hingga keemasan',
         badge: null
     },
     {
@@ -46,7 +46,7 @@ const PRODUCTS = [
             fat: '7g / 100gr',
             carbs: '8g / 100gr'
         },
-        serving: 'Goreng 3-5 menit atau oven 10 menit hingga keemasan',
+        serving: 'Goreng 3-5 menit atau airfrayer 10 menit hingga keemasan',
         badge: 'Best Seller'
     },
     {
@@ -289,6 +289,7 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 
 }
+
 
 
 
