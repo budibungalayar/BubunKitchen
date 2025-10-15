@@ -139,6 +139,42 @@ function clearCart() {
         }
     }
 }
+// ==========================================
+// FIREBASE ORDER SUBMISSION
+// ==========================================
+
+// Pastikan Firebase sudah diinisialisasi (firebase.js sudah di-load di HTML)
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+async function checkoutOrder(customerName, customerPhone, customerAddress) {
+    const db = getFirestore();
+
+    const cart = Storage.getCart();
+    if (cart.length === 0) {
+        showToast('Keranjang masih kosong!', 'error');
+        return;
+    }
+
+    const orderData = {
+        customerName,
+        customerPhone,
+        customerAddress,
+        items: cart,
+        total: getCartTotal(),
+        status: 'pending',
+        createdAt: serverTimestamp()
+    };
+
+    try {
+        await addDoc(collection(db, "orders"), orderData);
+        showToast('Pesanan berhasil dikirim!', 'success');
+        Storage.clearCart();
+        updateCartBadge();
+    } catch (e) {
+        console.error("Error menambahkan pesanan: ", e);
+        showToast('Gagal mengirim pesanan', 'error');
+    }
+}
 
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
@@ -152,4 +188,5 @@ if (typeof module !== 'undefined' && module.exports) {
         getCartCount,
         clearCart
     };
+
 }
