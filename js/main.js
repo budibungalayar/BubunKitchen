@@ -2,6 +2,7 @@
 // BUBUN KITCHEN - MAIN SCRIPT
 // Initialization & interactions untuk index.html
 // ==========================================
+import { addToCart } from './cart.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     initializePage();
@@ -336,10 +337,10 @@ if ('serviceWorker' in navigator) {
 }
 
 // Export functions for global use
-window.addToCart = addToCart;
 window.nextSlide = nextSlide;
 window.previousSlide = previousSlide;
 window.goToSlide = goToSlide;
+
 
 
 
