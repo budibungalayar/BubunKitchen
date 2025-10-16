@@ -177,14 +177,14 @@ async function checkoutOrder(customerName, customerPhone, customerAddress) {
 }
 
 // Export ke global scope agar bisa dipakai di main.js atau inline HTML
-window.addToCart = addToCart;
-window.removeFromCart = removeFromCart;
-window.updateCartQuantity = updateCartQuantity;
-window.increaseQuantity = increaseQuantity;
-window.decreaseQuantity = decreaseQuantity;
-window.getCartTotal = getCartTotal;
-window.getCartCount = getCartCount;
-window.clearCart = clearCart;
+// window.addToCart = addToCart;
+// window.removeFromCart = removeFromCart;
+// window.updateCartQuantity = updateCartQuantity;
+// window.increaseQuantity = increaseQuantity;
+// window.decreaseQuantity = decreaseQuantity;
+// window.getCartTotal = getCartTotal;
+// window.getCartCount = getCartCount;
+// window.clearCart = clearCart;
 
 export {
   addToCart,
@@ -196,3 +196,4 @@ export {
   getCartCount,
   clearCart
 };
+
