@@ -301,6 +301,7 @@ function confirmOrder() {
             status: 'COD_PENDING'
         };
     }
+}
     
     // Create order
     const cart = Storage.getCart();
@@ -479,3 +480,4 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
