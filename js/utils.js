@@ -332,23 +332,3 @@ if (typeof module !== 'undefined' && module.exports) {
         hideModal
     };
 }
-
-// Tambahkan export ES Module agar bisa diimport dari checkout.js & cart.js
-export { 
-    formatRupiah,
-    formatDate,
-    formatDateShort,
-    generateOrderCode,
-    showToast,
-    Storage,
-    smoothScrollTo,
-    updateCartBadge,
-    isValidEmail,
-    isValidPhone,
-    copyToClipboard,
-    debounce,
-    showModal,
-    hideModal
-};
-
-
