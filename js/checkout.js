@@ -7,13 +7,37 @@ let customerData = {};
 let paymentData = {};
 
 // Initialize checkout page
-document.addEventListener('DOMContentLoaded', function() {
-    if (!document.querySelector('.checkout-page')) return;
-    
-    updateCartBadge();
-    renderCartItems();
-    setupEventListeners();
+document.addEventListener('DOMContentLoaded', () => {
+    const cartContainer = document.getElementById('checkoutItems');
+    const totalPriceElement = document.getElementById('checkoutTotal');
+    const cart = Storage.getCart();
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML = '<p>Keranjang kosong 😢</p>';
+        totalPriceElement.textContent = 'Rp 0';
+        return;
+    }
+
+    let total = 0;
+    cartContainer.innerHTML = '';
+
+    cart.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.classList.add('checkout-item');
+        itemEl.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" width="60">
+            <div>
+                <h4>${item.name}</h4>
+                <p>${formatRupiah(item.price)} x ${item.quantity}</p>
+            </div>
+        `;
+        cartContainer.appendChild(itemEl);
+        total += item.price * item.quantity;
+    });
+
+    totalPriceElement.textContent = formatRupiah(total);
 });
+
 
 // Setup all event listeners
 function setupEventListeners() {
@@ -479,6 +503,7 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
 
