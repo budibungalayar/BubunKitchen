@@ -2,7 +2,7 @@
 // BUBUN KITCHEN - ADMIN PANEL
 // Admin dashboard & order management
 // ==========================================
-import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, query, orderBy, doc, updateDoc, ServerTimestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const ADMIN_PASSWORD = 'bubun25705';
 let currentFilter = 'all';
@@ -193,9 +193,7 @@ function showPage(pageName) {
 }
 
 // Update dashboard statistics
-async function updateDashboardStats() {
-    
-    
+function updateDashboardStats() {       
     const totalOrders = allOrders.length;
     const pendingOrders = allOrders.filter(o => o.status === 'PENDING').length;
     const processingOrders = allOrders.filter(o => o.status === 'DIPROSES').length;
@@ -216,7 +214,7 @@ async function updateDashboardStats() {
 }
 
 // Render recent orders
-async function renderRecentOrders() {
+function renderRecentOrders() {
     
     const recentOrders = allOrders
         .sort((a, b) => b.createdAt - a.createdAt)
@@ -251,7 +249,7 @@ function setupOrderFilters() {
 }
 
 // Update filter counts
-async function updateFilterCounts() {
+function updateFilterCounts() {
     
     document.getElementById('countAll').textContent = allOrders.length;
     document.getElementById('countPending').textContent = allOrders.filter(o => o.status === 'PENDING').length;
@@ -325,9 +323,9 @@ function renderOrdersTable() {
 }
 
 // Search orders
-async function searchOrders() {
+function searchOrders() {
     const searchTerm = document.getElementById('searchOrder').value.toLowerCase();
-    
+    let filteredOrders = allOrders;  
     if (currentFilter !== 'all') {
         filteredOrders = allOrders.filter(o => o.status === currentFilter);
     }
@@ -380,7 +378,7 @@ async function searchOrders() {
 
 // View order detail
 function viewOrderDetail(orderCode) {
-    const order = Storage.getOrderByCode(orderCode);
+    const order = allOrders.find(o => o.code === orderCode);
     if (!order) return;
     
     const modalContent = document.getElementById('orderDetailContent');
@@ -480,16 +478,42 @@ function viewOrderDetail(orderCode) {
 
 // Update order status
 async function updateStatus(orderCode, newStatus) {
-    if (Storage.updateOrderStatus(orderCode, newStatus)) {
+    try {
+        // 1. Cari order di allOrders
+        const orderIndex = allOrders.findIndex(o => o.code === orderCode);
+        if (orderIndex === -1) {
+            showToast('Pesanan tidak ditemukan', 'error');
+            return;
+        }
+        
+        const order = allOrders[orderIndex];
+        
+        // 2. Update ke Firestore dulu
+        const db = getFirestore();
+        const orderRef = doc(db, "orders", order.id);
+        
+        await updateDoc(orderRef, {
+            status: newStatus,
+            updatedAt: serverTimestamp()
+        });
+        
+        console.log('✅ Firebase updated:', orderCode, '→', newStatus);
+        
+        // 3. Show success toast
         showToast(`Status pesanan ${orderCode} diubah menjadi ${newStatus}`, 'success');
-        await loadOrders();        
-        // Refresh displays
+        
+        // 4. Reload data dari Firebase
+        await loadOrders();
+        
+        // 5. Refresh semua tampilan
         updateDashboardStats();
         renderRecentOrders();
         renderOrdersTable();
         updateFilterCounts();
-    } else {
-        showToast('Gagal mengubah status pesanan', 'error');
+        
+    } catch (error) {
+        console.error('❌ Error updating status:', error);
+        showToast('Gagal mengubah status: ' + error.message, 'error');
     }
 }
 
@@ -499,7 +523,7 @@ function closeOrderModal() {
 }
 
 // Render customers list
-async function renderCustomersList() {
+function renderCustomersList() {
     const customersMap = new Map();
     
     // Group orders by customer
@@ -566,7 +590,7 @@ function saveSettings() {
 }
 
 // Export orders data
-async function exportOrders() {
+function exportOrders() {
     if (allOrders.length === 0) {
         showToast('Tidak ada data untuk diekspor', 'error');
         return;
@@ -574,7 +598,7 @@ async function exportOrders() {
     
     // Convert to CSV
     const headers = ['Kode', 'Tanggal', 'Nama', 'Phone', 'Total', 'Pembayaran', 'Status'];
-    const rows = allOrdersmap(order => [
+    const rows = allOrder.smap(order => [
         order.code,
         formatDate(order.createdAt),
         order.customer.name,
@@ -670,14 +694,3 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
-
-
-
-
-
-
-
-
-
-
-
