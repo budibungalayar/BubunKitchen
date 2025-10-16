@@ -321,6 +321,7 @@ function confirmOrder() {
         // Simpan ke Firebase juga
         if (typeof saveOrderToFirebase === 'function') {
             saveOrderToFirebase(order);
+        }
         // Clear cart
         Storage.clearCart();
         updateCartBadge();
@@ -331,7 +332,7 @@ function confirmOrder() {
     } else {
         showToast('Gagal membuat pesanan. Silakan coba lagi.', 'error');
     }
-}
+
 
 // Display order success
 function displayOrderSuccess(order) {
