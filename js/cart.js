@@ -3,6 +3,19 @@
 // Shopping cart logic dan operations
 // ==========================================
 
+const Storage = {
+    getCart() {
+        const cart = localStorage.getItem('cart');
+        return cart ? JSON.parse(cart) : [];
+    },
+    saveCart(cart) {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    },
+    clearCart() {
+        localStorage.removeItem('cart');
+    }
+};
+
 // Add product to cart
 function addToCart(productId) {
     const product = getProductById(productId);
@@ -196,3 +209,4 @@ export {
   getCartCount,
   clearCart
 };
+
