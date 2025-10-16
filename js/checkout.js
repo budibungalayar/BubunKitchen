@@ -3,6 +3,8 @@
 // Multi-step checkout flow & order creation
 // ==========================================
 
+import './utils.js';
+
 let currentStep = 1;
 let customerData = {};
 let paymentData = {};
@@ -480,4 +482,5 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
