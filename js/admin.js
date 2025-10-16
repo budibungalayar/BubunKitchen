@@ -208,7 +208,7 @@ async function updateDashboardStats() {
     document.getElementById('ordersBadge').textContent = pendingOrders;
     
     // Calculate revenue
-    const revenue = orders
+    const revenue = allOrders
         .filter(o => o.status === 'SELESAI')
         .reduce((sum, o) => sum + o.total, 0);
     
@@ -218,7 +218,7 @@ async function updateDashboardStats() {
 // Render recent orders
 async function renderRecentOrders() {
     const orders = loadOrders();
-    const recentOrders = orders
+    const recentOrders = allOrders
         .sort((a, b) => b.createdAt - a.createdAt)
         .slice(0, 5);
     
@@ -678,6 +678,7 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+
 
 
 
