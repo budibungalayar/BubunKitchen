@@ -187,3 +187,4 @@ window.getCartTotal = getCartTotal;
 window.getCartCount = getCartCount;
 window.clearCart = clearCart;
 
+
