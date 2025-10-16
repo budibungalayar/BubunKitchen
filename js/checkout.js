@@ -17,9 +17,11 @@ let paymentData = {};
 
 // Initialize checkout page
 document.addEventListener('DOMContentLoaded', () => {
-    const cartContainer = document.getElementById('checkoutItems');
-    const totalPriceElement = document.getElementById('checkoutTotal');
-    const cart = Storage.getCart();
+    if (!document.querySelector('.checkout-page')) return; // Pastikan di halaman checkout
+    
+    setupEventListeners();
+    renderCartItems();
+    updateCartBadge();
 
     if (cart.length === 0) {
         cartContainer.innerHTML = '<p>Keranjang kosong 😢</p>';
@@ -333,9 +335,8 @@ function confirmOrder() {
             status: 'COD_PENDING'
         };
     }
-}
     
-    // Create order
+    // Create order (pindahkan ke dalam fungsi)
     const cart = Storage.getCart();
     const orderCode = generateOrderCode();
     const order = {
@@ -365,7 +366,7 @@ function confirmOrder() {
     } else {
         showToast('Gagal membuat pesanan. Silakan coba lagi.', 'error');
     }
-
+}
 
 // Display order success
 function displayOrderSuccess(order) {
@@ -512,4 +513,5 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
