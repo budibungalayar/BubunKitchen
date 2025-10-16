@@ -2,25 +2,26 @@
 // BUBUN KITCHEN - ADMIN PANEL
 // Admin dashboard & order management
 // ==========================================
+import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const ADMIN_PASSWORD = 'bubun25705';
 let currentFilter = 'all';
 let allOrders = [];
 
 // Initialize admin page
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     if (!document.querySelector('.admin-body')) return;
     
-    checkAdminAuth();
+    await checkAdminAuth(); // 👈 Tambahkan await
     setupLoginForm();
 });
 
 // Check if admin is authenticated
-function checkAdminAuth() {
+async function checkAdminAuth() {
     const isAuthenticated = sessionStorage.getItem('admin_authenticated');
     
     if (isAuthenticated === 'true') {
-        showDashboard();
+        await showDashboard(); // 👈 Tambahkan await
     } else {
         showLogin();
     }
@@ -36,14 +37,15 @@ function showLogin() {
 }
 
 // Show dashboard
-function showDashboard() {
+// Show dashboard
+async function showDashboard() {
     const loginScreen = document.getElementById('adminLogin');
     const dashboard = document.getElementById('adminDashboard');
     
     if (loginScreen) loginScreen.style.display = 'none';
     if (dashboard) dashboard.style.display = 'grid';
     
-    initializeDashboard();
+    await initializeDashboard(); // 👈 Tambahkan await
 }
 
 // Setup login form
@@ -68,9 +70,13 @@ function setupLoginForm() {
 }
 
 // Initialize dashboard
-function initializeDashboard() {
+// Initialize dashboard
+async function initializeDashboard() {
     updateDateTime();
-    loadOrders();
+    
+    // Load orders dari Firebase (async!)
+    await loadOrders();
+    
     setupNavigation();
     setupOrderFilters();
     
@@ -95,9 +101,44 @@ function updateDateTime() {
 }
 
 // Load orders from storage
-function loadOrders() {
-    allOrders = Storage.getOrders();
-    return allOrders;
+// Load orders from Firebase
+async function loadOrders() {
+    try {
+        const db = getFirestore();
+        const ordersRef = collection(db, "orders");
+        const q = query(ordersRef, orderBy("createdAt", "desc"));
+        const querySnapshot = await getDocs(q);
+        
+        allOrders = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            allOrders.push({
+                id: doc.id,
+                code: data.code,
+                customer: data.customer,
+                items: data.items,
+                total: data.total,
+                payment: data.payment,
+                status: data.status,
+                // Convert Firestore Timestamp to milliseconds
+                createdAt: data.createdAt?.toMillis() || Date.now(),
+                updatedAt: data.updatedAt?.toMillis() || Date.now()
+            });
+        });
+        
+        console.log('✅ Loaded', allOrders.length, 'orders from Firebase');
+        
+        // Juga simpan ke localStorage sebagai backup
+        Storage.saveOrders(allOrders);
+        
+        return allOrders;
+    } catch (error) {
+        console.error('❌ Error loading from Firebase:', error);
+        // Fallback ke localStorage jika Firebase error
+        allOrders = Storage.getOrders();
+        console.log('⚠️ Fallback to localStorage:', allOrders.length, 'orders');
+        return allOrders;
+    }
 }
 
 // Setup page navigation
@@ -593,15 +634,18 @@ function clearAllData() {
 }
 
 // Refresh data
-function refreshData() {
-    loadOrders();
+async function refreshData() {
+    showToast('Memuat data...', 'info');
+    
+    await loadOrders(); // 👈 Tambahkan await
+    
     updateDashboardStats();
     renderRecentOrders();
     renderOrdersTable();
     updateFilterCounts();
+    
     showToast('Data berhasil diperbarui', 'success');
 }
-
 // Logout
 function logout() {
     if (confirm('Yakin ingin logout?')) {
@@ -633,5 +677,5 @@ window.saveSettings = saveSettings;
 window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
-
 window.logout = logout;
+
