@@ -209,7 +209,7 @@ async function updateDashboardStats() {
     
     // Calculate revenue
     const revenue = allOrders
-        .filter(o => o.status === 'SELESAI')
+        allOrders.filter(o => o.status === 'SELESAI')
         .reduce((sum, o) => sum + o.total, 0);
     
     document.getElementById('totalRevenue').textContent = formatRupiah(revenue);
@@ -219,7 +219,7 @@ async function updateDashboardStats() {
 async function renderRecentOrders() {
     const orders = loadOrders();
     const recentOrders = allOrders
-        .sort((a, b) => b.createdAt - a.createdAt)
+        allOrders.sort((a, b) => b.createdAt - a.createdAt)
         .slice(0, 5);
     
     const listEl = document.getElementById('recentOrdersList');
@@ -678,6 +678,7 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+
 
 
 
