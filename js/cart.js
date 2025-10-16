@@ -3,7 +3,6 @@
 // Shopping cart logic dan operations
 // ==========================================
 
-import './utils.js';
 // Add product to cart
 function addToCart(productId) {
     const product = getProductById(productId);
@@ -186,5 +185,6 @@ window.decreaseQuantity = decreaseQuantity;
 window.getCartTotal = getCartTotal;
 window.getCartCount = getCartCount;
 window.clearCart = clearCart;
+
 
 
