@@ -282,7 +282,7 @@ async function renderOrdersTable() {
     const orders = loadOrders();
     let filteredOrders = orders;
     
-    if (currentFilter !== 'allOrders') {
+    if (currentFilter !== 'all') {
         filteredOrders = allOrders.filter(o => o.status === currentFilter);
     }
     
@@ -678,6 +678,7 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+
 
 
 
