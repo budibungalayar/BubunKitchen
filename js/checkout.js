@@ -7,13 +7,13 @@ let customerData = {};
 let paymentData = {};
 
 
-import {
-  getCartTotal,
-  increaseQuantity,
-  decreaseQuantity,
-  removeFromCart,
-  updateCartQuantity
-} from './cart.js';
+// import {
+//   getCartTotal,
+//   increaseQuantity,
+//   decreaseQuantity,
+//   removeFromCart,
+//   updateCartQuantity
+// } from './cart.js';
 
 // Initialize checkout page
 document.addEventListener('DOMContentLoaded', () => {
@@ -512,3 +512,4 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
