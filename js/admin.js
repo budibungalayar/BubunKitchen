@@ -279,7 +279,6 @@ function filterOrders(filter) {
 
 // Render orders table
 function renderOrdersTable() {
-    const orders = loadOrders();
     let filteredOrders = allOrders;
     
     if (currentFilter !== 'all') {
@@ -678,6 +677,7 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+
 
 
 
