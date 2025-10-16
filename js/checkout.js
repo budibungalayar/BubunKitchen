@@ -6,6 +6,15 @@ let currentStep = 1;
 let customerData = {};
 let paymentData = {};
 
+
+import {
+  getCartTotal,
+  increaseQuantity,
+  decreaseQuantity,
+  removeFromCart,
+  updateCartQuantity
+} from './cart.js';
+
 // Initialize checkout page
 document.addEventListener('DOMContentLoaded', () => {
     const cartContainer = document.getElementById('checkoutItems');
@@ -503,7 +512,3 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
-
-
-
-
