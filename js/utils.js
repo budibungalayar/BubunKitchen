@@ -332,3 +332,11 @@ if (typeof module !== 'undefined' && module.exports) {
         hideModal
     };
 }
+// Buat fungsi bisa diakses di browser
+if (typeof window !== 'undefined') {
+    window.formatRupiah = formatRupiah;
+    window.Storage = Storage;
+    window.showToast = showToast;
+    window.updateCartBadge = updateCartBadge;
+}
+
