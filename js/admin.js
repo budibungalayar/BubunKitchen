@@ -2,7 +2,7 @@
 // BUBUN KITCHEN - ADMIN PANEL
 // Admin dashboard & order management
 // ==========================================
-import { getFirestore, collection, getDocs, query, orderBy, doc, updateDoc, ServerTimestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, query, orderBy, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const ADMIN_PASSWORD = 'bubun25705';
 let currentFilter = 'all';
@@ -694,3 +694,4 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+
