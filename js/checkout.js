@@ -52,30 +52,30 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCartItems();
     updateCartBadge();
 
-    if (cart.length === 0) {
-        cartContainer.innerHTML = '<p>Keranjang kosong 😢</p>';
-        totalPriceElement.textContent = 'Rp 0';
-        return;
-    }
+    // if (cart.length === 0) {
+    //     cartContainer.innerHTML = '<p>Keranjang kosong 😢</p>';
+    //     totalPriceElement.textContent = 'Rp 0';
+    //     return;
+    // }
 
-    let total = 0;
-    cartContainer.innerHTML = '';
+    // let total = 0;
+    // cartContainer.innerHTML = '';
 
-    cart.forEach(item => {
-        const itemEl = document.createElement('div');
-        itemEl.classList.add('checkout-item');
-        itemEl.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" width="60">
-            <div>
-                <h4>${item.name}</h4>
-                <p>${formatRupiah(item.price)} x ${item.quantity}</p>
-            </div>
-        `;
-        cartContainer.appendChild(itemEl);
-        total += item.price * item.quantity;
-    });
+    // cart.forEach(item => {
+    //     const itemEl = document.createElement('div');
+    //     itemEl.classList.add('checkout-item');
+    //     itemEl.innerHTML = `
+    //         <img src="${item.image}" alt="${item.name}" width="60">
+    //         <div>
+    //             <h4>${item.name}</h4>
+    //             <p>${formatRupiah(item.price)} x ${item.quantity}</p>
+    //         </div>
+    //     `;
+    //     cartContainer.appendChild(itemEl);
+    //     total += item.price * item.quantity;
+    // });
 
-    totalPriceElement.textContent = formatRupiah(total);
+    // totalPriceElement.textContent = formatRupiah(total);
 });
 
 
@@ -542,6 +542,7 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
 
