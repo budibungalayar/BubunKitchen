@@ -278,7 +278,7 @@ function filterOrders(filter) {
 }
 
 // Render orders table
-async function renderOrdersTable() {
+function renderOrdersTable() {
     const orders = loadOrders();
     let filteredOrders = orders;
     
@@ -678,6 +678,7 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+
 
 
 
