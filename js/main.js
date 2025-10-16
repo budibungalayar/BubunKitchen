@@ -336,8 +336,8 @@ if ('serviceWorker' in navigator) {
 }
 
 // Export functions for global use
-window.addToCart = addToCart;
 window.nextSlide = nextSlide;
 window.previousSlide = previousSlide;
 window.goToSlide = goToSlide;
+
 
