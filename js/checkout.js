@@ -9,6 +9,11 @@ let currentStep = 1;
 let customerData = {};
 let paymentData = {};
 
+// Helper function untuk hitung total cart
+function getCartTotal() {
+    const cart = Storage.getCart();
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
 // Fungsi untuk save ke Firebase
 async function saveOrderToFirebase(order) {
     try {
@@ -542,6 +547,7 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
 
