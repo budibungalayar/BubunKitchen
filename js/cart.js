@@ -186,5 +186,13 @@ window.getCartTotal = getCartTotal;
 window.getCartCount = getCartCount;
 window.clearCart = clearCart;
 
-
-
+export {
+  addToCart,
+  removeFromCart,
+  updateCartQuantity,
+  increaseQuantity,
+  decreaseQuantity,
+  getCartTotal,
+  getCartCount,
+  clearCart
+};
