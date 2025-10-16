@@ -2,10 +2,39 @@
 // BUBUN KITCHEN - CHECKOUT PROCESS
 // Multi-step checkout flow & order creation
 // ==========================================
+// Import Firebase Firestore
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
 let currentStep = 1;
 let customerData = {};
 let paymentData = {};
 
+// Fungsi untuk save ke Firebase
+async function saveOrderToFirebase(order) {
+    try {
+        const db = getFirestore();
+        
+        // Konversi order data untuk Firebase
+        const firebaseOrder = {
+            code: order.code,
+            customer: order.customer,
+            items: order.items,
+            total: order.total,
+            payment: order.payment,
+            status: order.status,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+        };
+        
+        await addDoc(collection(db, "orders"), firebaseOrder);
+        console.log('✅ Order berhasil disimpan ke Firebase:', order.code);
+        return true;
+    } catch (error) {
+        console.error('❌ Error saving to Firebase:', error);
+        showToast('Pesanan tersimpan lokal, tapi gagal sync ke server', 'warning');
+        return false;
+    }
+}
 
 // import {
 //   getCartTotal,
@@ -513,5 +542,6 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
