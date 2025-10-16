@@ -194,7 +194,7 @@ function showPage(pageName) {
 
 // Update dashboard statistics
 async function updateDashboardStats() {
-    const orders = loadOrders();
+    
     
     const totalOrders = allOrders.length;
     const pendingOrders = allOrders.filter(o => o.status === 'PENDING').length;
@@ -209,7 +209,7 @@ async function updateDashboardStats() {
     
     // Calculate revenue
     const revenue = allOrders
-        allOrders.filter(o => o.status === 'SELESAI')
+        .filter(o => o.status === 'SELESAI')
         .reduce((sum, o) => sum + o.total, 0);
     
     document.getElementById('totalRevenue').textContent = formatRupiah(revenue);
@@ -217,9 +217,9 @@ async function updateDashboardStats() {
 
 // Render recent orders
 async function renderRecentOrders() {
-    const orders = loadOrders();
+    
     const recentOrders = allOrders
-        allOrders.sort((a, b) => b.createdAt - a.createdAt)
+        .sort((a, b) => b.createdAt - a.createdAt)
         .slice(0, 5);
     
     const listEl = document.getElementById('recentOrdersList');
@@ -252,7 +252,6 @@ function setupOrderFilters() {
 
 // Update filter counts
 async function updateFilterCounts() {
-    const orders = loadOrders();
     
     document.getElementById('countAll').textContent = allOrders.length;
     document.getElementById('countPending').textContent = allOrders.filter(o => o.status === 'PENDING').length;
@@ -328,9 +327,6 @@ function renderOrdersTable() {
 // Search orders
 async function searchOrders() {
     const searchTerm = document.getElementById('searchOrder').value.toLowerCase();
-    const orders = loadOrders();
-    
-    let filteredOrders = orders;
     
     if (currentFilter !== 'all') {
         filteredOrders = allOrders.filter(o => o.status === currentFilter);
@@ -486,7 +482,7 @@ function viewOrderDetail(orderCode) {
 async function updateStatus(orderCode, newStatus) {
     if (Storage.updateOrderStatus(orderCode, newStatus)) {
         showToast(`Status pesanan ${orderCode} diubah menjadi ${newStatus}`, 'success');
-        
+        await loadOrders();        
         // Refresh displays
         updateDashboardStats();
         renderRecentOrders();
@@ -504,7 +500,6 @@ function closeOrderModal() {
 
 // Render customers list
 async function renderCustomersList() {
-    const orders = loadOrders();
     const customersMap = new Map();
     
     // Group orders by customer
@@ -572,8 +567,6 @@ function saveSettings() {
 
 // Export orders data
 async function exportOrders() {
-    const orders = loadOrders();
-    
     if (allOrders.length === 0) {
         showToast('Tidak ada data untuk diekspor', 'error');
         return;
@@ -677,6 +670,7 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+
 
 
 
