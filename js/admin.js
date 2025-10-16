@@ -193,13 +193,13 @@ function showPage(pageName) {
 }
 
 // Update dashboard statistics
-function updateDashboardStats() {
+async function updateDashboardStats() {
     const orders = loadOrders();
     
-    const totalOrders = allorders.length;
-    const pendingOrders = allorders.filter(o => o.status === 'PENDING').length;
-    const processingOrders = allorders.filter(o => o.status === 'DIPROSES').length;
-    const completedOrders = allorders.filter(o => o.status === 'SELESAI').length;
+    const totalOrders = allOrders.length;
+    const pendingOrders = allOrders.filter(o => o.status === 'PENDING').length;
+    const processingOrders = allOrders.filter(o => o.status === 'DIPROSES').length;
+    const completedOrders = allOrders.filter(o => o.status === 'SELESAI').length;
     
     document.getElementById('totalOrders').textContent = totalOrders;
     document.getElementById('pendingOrders').textContent = pendingOrders;
@@ -216,7 +216,7 @@ function updateDashboardStats() {
 }
 
 // Render recent orders
-function renderRecentOrders() {
+async function renderRecentOrders() {
     const orders = loadOrders();
     const recentOrders = orders
         .sort((a, b) => b.createdAt - a.createdAt)
@@ -251,13 +251,13 @@ function setupOrderFilters() {
 }
 
 // Update filter counts
-function updateFilterCounts() {
+async function updateFilterCounts() {
     const orders = loadOrders();
     
-    document.getElementById('countAll').textContent = allorders.length;
-    document.getElementById('countPending').textContent = allorders.filter(o => o.status === 'PENDING').length;
-    document.getElementById('countProcessing').textContent = allorders.filter(o => o.status === 'DIPROSES').length;
-    document.getElementById('countCompleted').textContent = allorders.filter(o => o.status === 'SELESAI').length;
+    document.getElementById('countAll').textContent = allOrders.length;
+    document.getElementById('countPending').textContent = allOrders.filter(o => o.status === 'PENDING').length;
+    document.getElementById('countProcessing').textContent = allOrders.filter(o => o.status === 'DIPROSES').length;
+    document.getElementById('countCompleted').textContent = allOrders.filter(o => o.status === 'SELESAI').length;
 }
 
 // Filter orders
@@ -278,12 +278,12 @@ function filterOrders(filter) {
 }
 
 // Render orders table
-function renderOrdersTable() {
+async function renderOrdersTable() {
     const orders = loadOrders();
     let filteredOrders = orders;
     
     if (currentFilter !== 'all') {
-        filteredOrders = allorders.filter(o => o.status === currentFilter);
+        filteredOrders = allOrders.filter(o => o.status === currentFilter);
     }
     
     // Sort by date (newest first)
@@ -327,14 +327,14 @@ function renderOrdersTable() {
 }
 
 // Search orders
-function searchOrders() {
+async function searchOrders() {
     const searchTerm = document.getElementById('searchOrder').value.toLowerCase();
     const orders = loadOrders();
     
     let filteredOrders = orders;
     
     if (currentFilter !== 'all') {
-        filteredOrders = allorders.filter(o => o.status === currentFilter);
+        filteredOrders = allOrders.filter(o => o.status === currentFilter);
     }
     
     if (searchTerm) {
@@ -484,7 +484,7 @@ function viewOrderDetail(orderCode) {
 }
 
 // Update order status
-function updateStatus(orderCode, newStatus) {
+async function updateStatus(orderCode, newStatus) {
     if (Storage.updateOrderStatus(orderCode, newStatus)) {
         showToast(`Status pesanan ${orderCode} diubah menjadi ${newStatus}`, 'success');
         
@@ -504,12 +504,12 @@ function closeOrderModal() {
 }
 
 // Render customers list
-function renderCustomersList() {
+async function renderCustomersList() {
     const orders = loadOrders();
     const customersMap = new Map();
     
     // Group orders by customer
-    allorders.forEach(order => {
+    allOrders.forEach(order => {
         const phone = order.customer.phone;
         if (!customersMap.has(phone)) {
             customersMap.set(phone, {
@@ -572,17 +572,17 @@ function saveSettings() {
 }
 
 // Export orders data
-function exportOrders() {
+async function exportOrders() {
     const orders = loadOrders();
     
-    if (allorders.length === 0) {
+    if (allOrders.length === 0) {
         showToast('Tidak ada data untuk diekspor', 'error');
         return;
     }
     
     // Convert to CSV
     const headers = ['Kode', 'Tanggal', 'Nama', 'Phone', 'Total', 'Pembayaran', 'Status'];
-    const rows = allordersmap(order => [
+    const rows = allOrdersmap(order => [
         order.code,
         formatDate(order.createdAt),
         order.customer.name,
@@ -678,5 +678,6 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+
 
 
