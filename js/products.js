@@ -19,10 +19,10 @@ const PRODUCTS = [
         ],
         description: 'Nugget ayam premium tanpa pengawet. Cocok untuk porsi personal atau mencoba produk kami.',
         nutrition: {
-            calories: '180 kcal',
-            protein: '15g',
-            fat: '7g',
-            carbs: '8g'
+            calories: '285 kcal / 150gr',
+            protein: '29,3g / 150gr',
+            fat: '11,3g / 150gr',
+            carbs: '13,5g / 150gr'
         },
         serving: 'Goreng 3-5 menit atau airfrayer 10 menit hingga keemasan',
         badge: null
@@ -41,10 +41,10 @@ const PRODUCTS = [
         ],
         description: 'Nugget ayam premium tanpa pengawet. Hemat untuk keluarga! Best seller kami.',
         nutrition: {
-            calories: '180 kcal / 100gr',
-            protein: '15g / 100gr',
-            fat: '7g / 100gr',
-            carbs: '8g / 100gr'
+            calories: '570 kcal / 300gr',
+            protein: '58,5g / 300gr',
+            fat: '22,5g / 300gr',
+            carbs: '27g / 300gr'
         },
         serving: 'Goreng 3-5 menit atau airfrayer 10 menit hingga keemasan',
         badge: 'Best Seller'
@@ -63,10 +63,10 @@ const PRODUCTS = [
         ],
         description: 'Nugget ayam sudah matang, siap santap. Praktis untuk camilan atau bekal instant.',
         nutrition: {
-            calories: '44 kcal / potong',
-            protein: '2.5g / potong',
-            fat: '1.5g / potong',
-            carbs: '2.2g / potong'
+            calories: '190 kcal / potong',
+            protein: '19,5g / potong',
+            fat: '7,5g / potong',
+            carbs: '9g / potong'
         },
         serving: 'Siap dimakan langsung atau dihangatkan sebentar',
         badge: null
@@ -289,6 +289,7 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 
 }
+
 
 
 
