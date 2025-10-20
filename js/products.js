@@ -53,7 +53,7 @@ const PRODUCTS = [
         id: 3,
         name: 'Nutri Chicken Bites Matang',
         slug: 'ready-to-eat isi 8',
-        price: 12000,
+        price: 12000/8pcs,
         weight: 'Matang siap makan',
         type: 'ready',
         images: [
@@ -63,10 +63,10 @@ const PRODUCTS = [
         ],
         description: 'Nugget ayam sudah matang, siap santap. Praktis untuk camilan atau bekal instant.',
         nutrition: {
-            calories: '190 kcal / potong',
-            protein: '19,5g / potong',
-            fat: '7,5g / potong',
-            carbs: '9g / potong'
+            calories: '190 kcal/pcs',
+            protein: '19,5g/pcs',
+            fat: '7,5g/pcs',
+            carbs: '9g/pcs'
         },
         serving: 'Siap dimakan langsung atau dihangatkan sebentar',
         badge: null
@@ -289,6 +289,7 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 
 }
+
 
 
 
