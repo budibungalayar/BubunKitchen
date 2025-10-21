@@ -9,7 +9,7 @@ const PRODUCTS = [
         id: 1,
         name: 'Nutri Chicken Bites Frozen 150gr',
         slug: 'frozen-150gr',
-        price: 17000,
+        price: '17000',
         weight: '150gr',
         type: 'frozen',
         images: [
@@ -31,7 +31,7 @@ const PRODUCTS = [
         id: 2,
         name: 'Nutri Chicken Bites Frozen 300gr',
         slug: 'frozen-300gr',
-        price: 37000,
+        price: '37000',
         weight: '300gr',
         type: 'frozen',
         images: [
@@ -53,7 +53,7 @@ const PRODUCTS = [
         id: 3,
         name: 'Nutri Chicken Bites Matang',
         slug: 'ready-to-eat isi 8',
-        price: 12000/8pcs,
+        price: '12000/8pcs',
         weight: 'Matang siap makan',
         type: 'ready',
         images: [
@@ -289,6 +289,7 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 
 }
+
 
 
 
