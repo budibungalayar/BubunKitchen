@@ -397,6 +397,9 @@ function confirmOrder() {
         // Show success page
         displayOrderSuccess(order);
         goToStep(4);
+        // Kirim notifikasi WhatsApp ke pembeli
+        sendWhatsAppNotification(order);
+
     } else {
         showToast('Gagal membuat pesanan. Silakan coba lagi.', 'error');
     }
@@ -445,6 +448,29 @@ function displayOrderSuccess(order) {
         }
     }
 }
+function sendWhatsAppNotification(order) {
+            // Nomor WA pembeli
+            const phone = order.customer.phone.replace(/^0/, "62"); // ubah 08 jadi 628
+        
+            // Pesan notifikasi
+            const message = `
+        Halo ${order.customer.name}! 👋
+        
+        Terima kasih telah berbelanja di *Bubun Kitchen*. 
+        Pesanan kamu telah kami terima dengan rincian:
+        
+        🧾 Kode Pesanan: *${order.code}*
+        💰 Total: *${formatRupiah(order.total)}*
+        📦 Metode: *${order.payment.method === 'transfer' ? 'Transfer ' + order.payment.provider.toUpperCase() : 'COD (Bayar di Tempat)'}*
+        
+        Silakan lakukan pembayaran sesuai metode yang dipilih, ya 😊
+        `.trim();
+        
+            // Buka WhatsApp Web / App
+            const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
+}
+
 
 // Copy order code
 function copyOrderCode() {
@@ -547,6 +573,7 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
 
