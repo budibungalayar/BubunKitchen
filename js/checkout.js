@@ -399,6 +399,10 @@ function confirmOrder() {
         goToStep(4);
         // Kirim notifikasi WhatsApp ke pembeli
         sendWhatsAppNotification(order);
+        // 👇 TAMBAH INI: Kirim notif ke admin juga
+        setTimeout(() => {
+        sendAdminNotification(order);
+        }, 2000); // Delay 2 detik biar ga bentrok
 
     } else {
         showToast('Gagal membuat pesanan. Silakan coba lagi.', 'error');
@@ -641,6 +645,7 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
 
