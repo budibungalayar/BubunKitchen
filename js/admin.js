@@ -8,6 +8,66 @@ const ADMIN_PASSWORD = 'bubun25705';
 let currentFilter = 'all';
 let allOrders = [];
 
+// ==========================================
+// WHATSAPP NOTIFICATION FOR STATUS UPDATES
+// ==========================================
+
+function sendStatusNotification(order, newStatus) {
+    const phone = order.customer.phone.replace(/^0/, "62");
+    
+    let emoji = "";
+    let title = "";
+    let message = "";
+    let steps = "";
+    
+    if (newStatus === 'DIPROSES') {
+        emoji = "⏳";
+        title = "PESANAN SEDANG DIPROSES";
+        message = `Yeay! Pesanan kamu sedang kami proses dengan penuh cinta 💚`;
+        steps = `
+📋 *LANGKAH SELANJUTNYA:*
+✅ Pesanan dikemas dengan hati-hati
+✅ Dikirim dalam 1-2 hari kerja
+✅ Kami akan update lagi saat dikirim!
+        `;
+    } else if (newStatus === 'SELESAI') {
+        emoji = "🎉";
+        title = "PESANAN TELAH SELESAI";
+        message = `Pesanan kamu sudah selesai dan dalam perjalanan! 🚚💨`;
+        steps = `
+🎊 *TERIMA KASIH SUDAH BERBELANJA!*
+⭐ Jangan lupa review produk kami ya!
+🛍️ Sampai jumpa di pesanan berikutnya!
+
+💚 *Bubun Kitchen*
+_Hidangan Sehat dari Dapur Cinta_
+        `;
+    }
+    
+    const fullMessage = `
+${emoji} *${title}* ${emoji}
+
+Halo *${order.customer.name}*! 👋
+
+${message}
+
+━━━━━━━━━━━━━━━━━━━━
+📦 *INFO PESANAN*
+🧾 Kode: *${order.code}*
+💰 Total: *${formatRupiah(order.total)}*
+📍 Status: *${newStatus}*
+
+${steps}
+
+━━━━━━━━━━━━━━━━━━━━
+Ada pertanyaan? Chat kami kapan saja! 😊
+    `.trim();
+    
+    const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(fullMessage)}`;
+    
+    // Buka tab baru untuk kirim notif
+    window.open(waLink, '_blank');
+}
 // Initialize admin page
 document.addEventListener('DOMContentLoaded', async function() {
     if (!document.querySelector('.admin-body')) return;
@@ -510,7 +570,10 @@ async function updateStatus(orderCode, newStatus) {
         renderRecentOrders();
         renderOrdersTable();
         updateFilterCounts();
-        
+        // 👇 TAMBAH INI: Kirim notif WA ke pembeli
+        setTimeout(() => {
+            sendStatusNotification(order, newStatus);
+        }, 500); // Delay dikit biar smooth
     } catch (error) {
         console.error('❌ Error updating status:', error);
         showToast('Gagal mengubah status: ' + error.message, 'error');
@@ -694,4 +757,5 @@ window.exportOrders = exportOrders;
 window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
+window.sendStatusNotification = sendStatusNotification;
 
