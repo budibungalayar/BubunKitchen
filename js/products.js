@@ -53,7 +53,7 @@ const PRODUCTS = [
         id: 3,
         name: 'Nutri Chicken Bites Matang',
         slug: 'ready-to-eat isi 8',
-        price: '12000/8pcs',
+        price: '12000',
         weight: 'Matang siap makan',
         type: 'ready',
         images: [
@@ -289,6 +289,7 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 
 }
+
 
 
 
