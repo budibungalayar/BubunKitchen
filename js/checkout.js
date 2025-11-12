@@ -400,8 +400,6 @@ function confirmOrder() {
         // Kirim notifikasi WhatsApp ke pembeli
         sendWhatsAppNotification(order);
 
-        }, 2000); // Delay 2 detik biar ga bentrok
-
     } else {
         showToast('Gagal membuat pesanan. Silakan coba lagi.', 'error');
     }
@@ -594,6 +592,7 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
 
