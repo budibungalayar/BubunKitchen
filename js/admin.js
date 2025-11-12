@@ -27,7 +27,7 @@ function sendStatusNotification(order, newStatus) {
         steps = `
 📋 *LANGKAH SELANJUTNYA:*
 ✅ Pesanan dikemas dengan hati-hati
-✅ Dikirim dalam 1-2 hari kerja
+✅ Akan segera dikirim
 ✅ Kami akan update lagi saat dikirim!
         `;
     } else if (newStatus === 'SELESAI') {
@@ -758,4 +758,5 @@ window.clearAllData = clearAllData;
 window.refreshData = refreshData;
 window.logout = logout;
 window.sendStatusNotification = sendStatusNotification;
+
 
