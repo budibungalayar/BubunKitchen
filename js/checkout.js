@@ -454,7 +454,7 @@ function displayOrderSuccess(order) {
 // ==========================================
 
 // 🔔 Notifikasi gabungan ke ADMIN (mewakili pembeli)
-function sendOrderNotification(order) {
+function sendWhatsAppNotification(order) {
     const adminPhone = "6285737772377"; // 👈 Nomor WA Admin Bubun Kitchen
     
     const message = `
@@ -488,7 +488,7 @@ Terima kasih 💚"
 }
 
 // Export agar bisa dipakai di file lain
-window.sendOrderNotification = sendOrderNotification;
+window.sendWhatsAppNotification = sendWhatsAppNotification;
 
 
 // Copy order code
@@ -592,6 +592,7 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
 
