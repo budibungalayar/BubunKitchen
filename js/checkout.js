@@ -399,9 +399,7 @@ function confirmOrder() {
         goToStep(4);
         // Kirim notifikasi WhatsApp ke pembeli
         sendWhatsAppNotification(order);
-        // 👇 TAMBAH INI: Kirim notif ke admin juga
-        setTimeout(() => {
-        sendAdminNotification(order);
+
         }, 2000); // Delay 2 detik biar ga bentrok
 
     } else {
@@ -457,91 +455,42 @@ function displayOrderSuccess(order) {
 // WHATSAPP NOTIFICATION FUNCTIONS
 // ==========================================
 
-// 1️⃣ Notif untuk PEMBELI saat checkout berhasil
-    function sendWhatsAppNotification(order) {
-        const phone = order.customer.phone.replace(/^0/, "62");
-        
-        const message = `
-    Halo *${order.customer.name}*! 👋
+// 🔔 Notifikasi gabungan ke ADMIN (mewakili pembeli)
+function sendOrderNotification(order) {
+    const adminPhone = "6285737772377"; // 👈 Nomor WA Admin Bubun Kitchen
     
-    Terima kasih telah berbelanja di *Bubun Kitchen* 🍗✨
-    
-    📦 *DETAIL PESANAN*
-    ━━━━━━━━━━━━━━━━━━━━
-    🧾 Kode: *${order.code}*
-    💰 Total: *${formatRupiah(order.total)}*
-    💳 Pembayaran: *${order.payment.method === 'transfer' ? 'Transfer ' + order.payment.provider.toUpperCase() : 'COD'}*
-    📍 Alamat: ${order.customer.address}
-    
-    🛍️ *PRODUK:*
-    ${order.items.map(item => `• ${item.name} x${item.quantity} - ${formatRupiah(item.price * item.quantity)}`).join('\n')}
-    
-    ━━━━━━━━━━━━━━━━━━━━
-    ⏳ *Pesanan Anda sedang menunggu konfirmasi*
-    
-    📌 Jangan lupa proses pesanan saya ya, Min! 🙏
-    Saya tunggu kabar baiknya 😊
-    
-    Terima kasih! 💚
-        `.trim();
-        
-        const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-        window.open(waLink, '_blank');
-    }
-    
-    // 2️⃣ Notif untuk ADMIN saat ada pesanan baru
-    function sendAdminNotification(order) {
-        const adminPhone = "6285737772377"; // 👈 Nomor WA Admin Bubun Kitchen
-        
-        const message = `
-    🔔 *PESANAN BARU MASUK!* 🔔
-    
-    ━━━━━━━━━━━━━━━━━━━━
-    📦 *DETAIL PESANAN*
-    🧾 Kode: *${order.code}*
-    👤 Nama: ${order.customer.name}
-    📱 Phone: ${order.customer.phone}
-    📍 Alamat: ${order.customer.address}
-    
-    🛍️ *PRODUK:*
-    ${order.items.map(item => `• ${item.name} x${item.quantity}`).join('\n')}
-    
-    💰 *Total: ${formatRupiah(order.total)}*
-    💳 Metode: ${order.payment.method === 'transfer' ? order.payment.provider.toUpperCase() : 'COD'}
-    
-    ━━━━━━━━━━━━━━━━━━━━
-    ⚡ Segera proses pesanan ini!
-        `.trim();
-        
-        const waLink = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
-        window.open(waLink, '_blank');
-    }
-    
-    // 3️⃣ Export agar bisa dipakai di file lain
-    window.sendWhatsAppNotification = sendWhatsAppNotification;
-    window.sendAdminNotification = sendAdminNotification;
-// function sendWhatsAppNotification(order) {
-//             // Nomor WA pembeli
-//             const phone = order.customer.phone.replace(/^0/, "62"); // ubah 08 jadi 628
-        
-//             // Pesan notifikasi
-//             const message = `
-//         Halo ${order.customer.name}! 👋
-        
-//         Terima kasih telah berbelanja di *Bubun Kitchen*. 
-//         Pesanan kamu telah kami terima dengan rincian:
-        
-//         🧾 Kode Pesanan: *${order.code}*
-//         💰 Total: *${formatRupiah(order.total)}*
-//         📦 Metode: *${order.payment.method === 'transfer' ? 'Transfer ' + order.payment.provider.toUpperCase() : 'COD (Bayar di Tempat)'}*
-        
-//         Silakan lakukan pembayaran sesuai metode yang dipilih, ya 😊
-//         `.trim();
-        
-//             // Buka WhatsApp Web / App
-//             const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-//             window.open(waLink, '_blank');
-// }
+    const message = `
+Halo Admin Bubun Kitchen 👋
+
+Ada pesanan baru dari *${order.customer.name}* nih! 🛒
+
+━━━━━━━━━━━━━━━━━━━━
+📦 *DETAIL PESANAN*
+🧾 Kode: *${order.code}*
+💰 Total: *${formatRupiah(order.total)}*
+💳 Pembayaran: *${order.payment.method === 'transfer' ? 'Transfer ' + order.payment.provider.toUpperCase() : 'COD'}*
+📱 Phone: ${order.customer.phone}
+📍 Alamat: ${order.customer.address}
+
+🛍️ *PRODUK:*
+${order.items.map(item => `• ${item.name} x${item.quantity} - ${formatRupiah(item.price * item.quantity)}`).join('\n')}
+
+━━━━━━━━━━━━━━━━━━━━
+📩 *Pesan dari Pembeli:*
+"Halo Admin, saya *${order.customer.name}* sudah checkout nih 😄
+Mohon diproses pesanannya ya 🙏
+Terima kasih 💚"
+
+━━━━━━━━━━━━━━━━━━━━
+⚡ Segera konfirmasi & proses pesanan ini!
+    `.trim();
+
+    const waLink = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
+    window.open(waLink, '_blank');
+}
+
+// Export agar bisa dipakai di file lain
+window.sendOrderNotification = sendOrderNotification;
 
 
 // Copy order code
@@ -645,6 +594,7 @@ window.copyOrderCode = copyOrderCode;
 window.checkOrderStatus = checkOrderStatus;
 window.searchOrder = searchOrder;
 window.closeStatusModal = closeStatusModal;
+
 
 
 
